@@ -1,0 +1,288 @@
+/* General body styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+}
+
+/* Admin Page Container */
+.admin-page {
+    min-height: 200vh;
+    background-color: #e6f0e9;
+}
+
+/* Header layout */
+.header {
+    background-color: #387c3b; /* Dark green */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+/* Logo and title area */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+    margin-right: 20px;
+}
+
+.header-text {
+    color: white;
+}
+
+.logo-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.sub-title {
+    font-size: 20px;
+}
+
+/* Navigation section styling */
+.nav-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.navigation {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+}
+
+/* Active tab (green), inactive tab (light green) */
+.nav-button:first-child {
+    background-color: #0d580d;
+    color: rgb(245, 245, 245);
+}
+
+.nav-button:nth-child(2) {
+    background-color: #0d580d;
+    color: rgb(245, 245, 245);
+}
+
+.nav-button:hover {
+    background-color: #1a9707;
+    color: #ffffff;
+    opacity: 0.85;
+}
+
+/* Student header row */
+.student-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -5%;
+    margin-bottom: 5px;
+    color: #000000;
+    font-weight: 200;
+}
+
+/* Student section */
+.student-section {
+    margin: 0 auto;
+    padding: 60px 80px;
+}
+
+.student-section h2 {
+    font-size: 24px;
+    margin: 30px 0 10px 0;
+    display: flex;
+}
+
+.student-section h3 {
+    background-color: #117a28;
+    color: white;
+    padding: 5px 300px;
+    margin-bottom: 1px;
+    margin-top: -1%;
+    display: flexbox;
+    text-align: left;
+    text-indent: -55%;
+}
+
+.student-section h4 {
+    color: rgb(7, 81, 10);
+    padding: 1px 50px;
+    margin-bottom: -10px;
+    display: flexbox;
+    text-align: left;
+    text-indent: 30%;
+}
+
+/* Add/Edit/Delete buttons */
+.add-button {
+    background-color: #34a853;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 15px;
+    margin-bottom: -15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #e0e0e0;
+    color: black;
+    border: none;
+    padding: 6px 10px;
+    font-size: 14px;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: #ef3d32;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Student table */
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.student-table th, .student-table td {
+    border: 2px solid black;
+    text-align: center;
+    padding: 12px;
+}
+
+.student-table th {
+    background-color: #117a28;
+    color: white;
+}
+
+/* Modal overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Floating form */
+.floating-form {
+    background-color: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.floating-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Save and cancel in modal */
+.save-button, .cancel-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.save-button {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #1e5e23;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: black;
+}
+
+.cancel-button:hover {
+    background-color: #999;
+}
+
+/* Arrow + Logout button */
+.log-out-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgb(54, 29, 29);
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.arrow-button:hover {
+    border-top-color: #09b548;
+}
+
+.log-out-button {
+    background-color: #8863614e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    margin-top: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.log-out-button:hover {
+    background-color: #1b0401;
+}
