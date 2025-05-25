@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // ✅ Import useNavigate
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './AdminPage-Prof.css';
 import logo from '../logo.png';
 import background from '../bg.png';
 
 const AdminPageProf = () => {
-    const navigate = useNavigate(); // ✅ Set up navigation
+    const navigate = useNavigate();
 
     const [professors, setProfessors] = useState([]);
     const [isAdding, setIsAdding] = useState(false);
@@ -21,14 +22,18 @@ const AdminPageProf = () => {
 
     const [isLogOutVisible, setIsLogOutVisible] = useState(false);
 
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/professors')
+            .then((res) => setProfessors(res.data))
+            .catch((err) => console.error('Failed to fetch professors:', err));
+    }, []);
+
     const toggleLogOutVisibility = () => {
         setIsLogOutVisible(!isLogOutVisible);
     };
 
-    // ✅ Handle Log Out
     const handleLogOut = () => {
-        // Here you can clear any stored session or authentication data if needed
-        navigate('/login'); // Redirect to the login page
+        navigate('/login');
     };
 
     const handleAddProfessorClick = () => {
@@ -57,22 +62,34 @@ const AdminPageProf = () => {
 
     const handleAddProfessorSubmit = (e) => {
         e.preventDefault();
-        const newProf = {
-            id: professors.length + 1,
-            ...newProfessor
-        };
-        setProfessors([...professors, newProf]);
-        setIsAdding(false);
+        axios.post('http://localhost:3001/api/professors', newProfessor)
+            .then((res) => {
+                setProfessors([...professors, res.data]);
+                setIsAdding(false);
+            })
+            .catch((err) => console.error('Failed to add professor:', err));
     };
 
     const handleEditProfessorSubmit = (e) => {
         e.preventDefault();
-        const updatedProfessors = professors.map((prof) =>
-            prof.id === currentProfessor.id ? { ...prof, ...newProfessor } : prof
-        );
-        setProfessors(updatedProfessors);
-        setIsEditing(false);
-        setCurrentProfessor(null);
+        axios.put(`http://localhost:3001/api/professors/${currentProfessor.id}`, newProfessor)
+            .then(() => {
+                const updatedList = professors.map((prof) =>
+                    prof.id === currentProfessor.id ? { ...prof, ...newProfessor } : prof
+                );
+                setProfessors(updatedList);
+                setIsEditing(false);
+                setCurrentProfessor(null);
+            })
+            .catch((err) => console.error('Failed to update professor:', err));
+    };
+
+    const handleDeleteProfessor = (id) => {
+        axios.delete(`http://localhost:3001/api/professors/${id}`)
+            .then(() => {
+                setProfessors(professors.filter((prof) => prof.id !== id));
+            })
+            .catch((err) => console.error('Failed to delete professor:', err));
     };
 
     return (
@@ -93,7 +110,6 @@ const AdminPageProf = () => {
                         <div className="sub-title">ONLINE GRADING SYSTEM</div>
                     </div>
                 </div>
-
                 <div className="log-out-container">
                     <button className="arrow-button" onClick={toggleLogOutVisibility}></button>
                     {isLogOutVisible && (
@@ -146,10 +162,7 @@ const AdminPageProf = () => {
                                     <button className="edit-button" onClick={() => handleEditProfessorClick(prof)}>
                                         Edit
                                     </button>
-                                    <button
-                                        className="delete-button"
-                                        onClick={() => setProfessors(professors.filter((p) => p.id !== prof.id))}
-                                    >
+                                    <button className="delete-button" onClick={() => handleDeleteProfessor(prof.id)}>
                                         Delete
                                     </button>
                                 </td>
@@ -226,4 +239,3 @@ const AdminPageProf = () => {
 };
 
 export default AdminPageProf;
-
