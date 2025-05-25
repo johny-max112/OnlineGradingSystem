@@ -3,11 +3,14 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const professorRoutes = require('./routes/professorRoutes');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/professors', professorRoutes);
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -128,6 +131,35 @@ app.delete('/api/professors/:id', (req, res) => {
   db.query(sql, [id], (err, result) => {
     if (err) return res.status(500).json({ error: err });
     res.json({ message: 'Professor deleted successfully', id });
+  });
+});
+
+
+app.post('/login', (req, res) => {
+  const { username, password, role } = req.body;
+
+  db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    if (err) return res.status(500).json({ error: 'Server error' });
+    if (results.length === 0) return res.status(401).json({ error: 'Invalid credentials' });
+
+    const user = results[0];
+
+    if (user.role !== role) {
+      return res.status(403).json({ error: 'Unauthorized role' });
+    }
+
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) return res.status(500).json({ error: 'Server error' });
+      if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
+
+      const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      res.json({
+        message: 'Login successful',
+        token,
+        role: user.role
+      });
+    });
   });
 });
 

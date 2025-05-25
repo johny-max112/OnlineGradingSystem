@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Login from './login';
 import AdminPage from './Admin/AdminPage-Prof';
 import AdminPageStudent from './Admin/AdminPage-Student';
+import ProfessorLoginPage from './Professor/ProfessorLoginPage';
+import ProfessorDashboardPage from './Professor/ProfessorDashboardPage';
 import './login.css';
 
 function AppRoutes() {
@@ -22,6 +24,9 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/student" element={<AdminPageStudent />} />
+      <Route path="/professor-login" element={<ProfessorLoginPage />} />
+      <Route path="/professor-dashboard" element={<ProfessorDashboardPage />} />
+      
     </Routes>
   );
 }
